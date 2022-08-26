@@ -110,6 +110,34 @@ router.put('/employee/:id', (req, res) => {
     });
 });
 
+// update employees manager
+router.put('/employee-manager/:id', (req, res) => {
+    const errors = inputCheck(req.body, 'manager_id');
+    if (errors) {
+        res.status(400).json({ error: errors });
+        return;
+    }
+
+    const sql = `UPDATE employees SET manager_id = ? WHERE id = ?`;
+    const params = [req.body.manager_id, req.params.id];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else if (!result.affectedRows) {
+            res.json({
+                message: 'Employee not found'
+            });
+        } else {
+            res.json({
+                message: 'success',
+                data: req.body,
+                changes: result.affectedRows
+            });
+        }
+    });
+});
+
 // View employees by manager
 router.get('/employees-managed/:manager_id', (req, res) => {
     const sql = `SELECT * FROM employees WHERE manager_id = ?`;
