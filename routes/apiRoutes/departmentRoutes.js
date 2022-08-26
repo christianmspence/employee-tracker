@@ -4,7 +4,7 @@ const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
 
-//Get parties
+//Get deparments
 router.get('/departments', (req, res) => {
     const sql = `SELECT * FROM departments`;
     db.query(sql, (err, rows) => {
