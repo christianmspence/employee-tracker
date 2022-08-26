@@ -110,4 +110,38 @@ router.put('/employee/:id', (req, res) => {
     });
 });
 
+// View employees by manager
+router.get('/employees-managed/:manager_id', (req, res) => {
+    const sql = `SELECT * FROM employees WHERE manager_id = ?`;
+    const params = [req.params.manager_id];
+
+    db.query(sql, params, (err, row) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: row
+        });
+    });
+});
+
+// View employees by department
+router.get('/employees-departments/:role_id', (req, res) => {
+    const sql = `SELECT * FROM employees WHERE role_id = ?`;
+    const params = [req.params.role_id];
+
+    db.query(sql, params, (err, row) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: row
+        });
+    });
+});
+
 module.exports = router;
