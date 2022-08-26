@@ -18,8 +18,8 @@ router.get('/departments', (req, res) => {
     });
 });
 
-// Get a single candidate
-app.get('/api/department/:id', (req, res) => {
+// Get a single department
+router.get('/department/:id', (req, res) => {
     const sql = `SELECT * FROM departments WHERE id = ?`;
     const params = [req.params.id];
 
