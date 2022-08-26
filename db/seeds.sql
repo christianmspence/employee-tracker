@@ -9,13 +9,13 @@ VALUES
 
 INSERT INTO roles (title, salary, department_id)
 VALUES
-('Graphic Designer', 50,000, 6),
-('Full-Stack Developer', 70,000, 5),
-('Payroll', 50,000, 4),
-('Sales Associate', 40,000, 3),
-('Accountant', 60,000, 2),
-('CFO', 80,000, 2),
-('CEO', 100,000, 1);
+('Graphic Designer', 50.00, 6),
+('Full-Stack Developer', 70.00, 5),
+('Payroll', 50.00, 4),
+('Sales Associate', 40.00, 3),
+('Accountant', 60.00, 2),
+('CFO', 80.00, 2),
+('CEO', 100.00, 1);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES
