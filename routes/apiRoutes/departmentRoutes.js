@@ -60,14 +60,14 @@ router.delete('/department/:id', (req, res) => {
 
 // create department
 router.post('/department', ({ body }, res) => {
-    const errors = inputCheck(body, 'dept_name');
+    const errors = inputCheck(body, 'name');
     if (errors) {
         res.status(400).json({ error: errors });
         return;
     }
 
-    const sql = `INSERT INTO departments (dept_name) VALUES (?)`;
-    const params = [body.dept_name];
+    const sql = `INSERT INTO departments (name) VALUES (?)`;
+    const params = [body.name];
 
     db.query(sql, params, (err, result) => {
         if (err) {
