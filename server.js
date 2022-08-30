@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./db/connection');
 const apiRoutes = require('./routes/apiRoutes');
+const { initApp } = require('./app');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -22,3 +23,5 @@ db.connect(err => {
         console.log(`Server running on port ${PORT}`);
     });
 });
+
+initApp();
