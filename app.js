@@ -9,7 +9,7 @@ function initApp() {
             choices: [
                 "View departments",
                 "Add department",
-                "View roles",
+                "View all roles",
                 "Add role",
                 "View employees",
                 "Add employee",
@@ -32,21 +32,13 @@ function initApp() {
                 case "Add department":
                     addDept();
                     break;
-                // case "Add employee":
-                //     addEmployee();
-                //     break;
-                // case "View departments":
-                //     viewDepartment();
-                //     break;
-                // case "View roles":
-                //     viewRoles();
-                //     break;
-                // case "View employees":
-                //     viewEmployees();
-                //     break;
-                // case "Update employee role":
-                //     updateEmployee();
-                //     break;
+                case "View all roles":
+                    allRoles();
+                    break;
+                case "Add role":
+                    addRole();
+                    break;
+
                 default:
                     process.exit();
             }
@@ -55,7 +47,6 @@ function initApp() {
 
 // View all departments
 function allDepts() {
-    // select from the db
     let query = "SELECT * FROM departments";
     db.query(query, function (err, res) {
         if (err) throw err;
@@ -64,6 +55,7 @@ function allDepts() {
     });
 }
 
+// add department
 function addDept() {
     inquirer
         .prompt({
@@ -83,5 +75,44 @@ function addDept() {
                 })
         })
 }
+// view all roles
+function allRoles() {
+    let query = "SELECT * FROM roles";
+    db.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        initApp();
+    });
+}
 
+// add a role
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What's the name of the role?",
+                name: "role_name"
+            },
+            {
+                type: "input",
+                message: "What is the salary for this role?",
+                name: "role_salary"
+            },
+            {
+                type: "input",
+                message: "What is the department id number for this role?",
+                name: "dept_id"
+            }
+        ])
+        .then(function (data) {
+            db.query("INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)",
+                [data.role_name, data.role_salary, data.dept_id],
+                function (err, res) {
+                    if (err) throw err;
+                    console.table("Role added!");
+                    initApp();
+                });
+        });
+}
 module.exports = { initApp }
